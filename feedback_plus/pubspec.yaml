@@ -1,0 +1,21 @@
+name: feedback_plus
+description: A Flutter package for getting better feedback. It allows the user to give interactive feedback directly in the app.
+version: 0.0.3
+homepage: https://github.com/K1yoshiSho/feedback_plus
+repository: https://github.com/K1yoshiSho/feedback_plus
+issue_tracker: https://github.com/K1yoshiSho/feedback_plus/issues
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+  flutter: '>=3.10.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_lints: ^3.0.0
+  flutter_test:
+    sdk: flutter
