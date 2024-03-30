@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 const _defaultDrawColors = [
   Colors.red,
   Colors.green,
-  Colors.blue,
+  Color.fromRGBO(33, 150, 243, 1),
   Colors.yellow,
 ];
 
@@ -32,19 +32,21 @@ const _defaultBottomSheetTextInputStyle = TextStyle(
 class FeedbackThemeData {
   /// Creates a [FeedbackThemeData].
   /// ![Theme](https://raw.githubusercontent.com/ueman/feedback/master/img/theme_description.png "Theme")
-  FeedbackThemeData(
-      {this.background = Colors.grey,
-      this.feedbackSheetColor = _lightGrey,
-      this.feedbackSheetHeight = .25,
-      this.activeFeedbackModeColor = _blue,
-      this.cardColor = _lightGrey,
-      this.drawColors = _defaultDrawColors,
-      this.bottomSheetDescriptionStyle = _defaultBottomSheetDescriptionStyle,
-      this.bottomSheetTextInputStyle = _defaultBottomSheetTextInputStyle,
-      this.sheetIsDraggable = true,
-      Color? dragHandleColor,
-      ColorScheme? colorScheme})
-      :
+  FeedbackThemeData({
+    this.background = Colors.grey,
+    this.feedbackSheetColor = _lightGrey,
+    this.feedbackSheetHeight = .25,
+    this.activeFeedbackModeColor = _blue,
+    this.cardColor = _lightGrey,
+    this.inactiveColor = Colors.grey,
+    this.textColor = Colors.black,
+    this.drawColors = _defaultDrawColors,
+    this.bottomSheetDescriptionStyle = _defaultBottomSheetDescriptionStyle,
+    this.bottomSheetTextInputStyle = _defaultBottomSheetTextInputStyle,
+    this.sheetIsDraggable = true,
+    Color? dragHandleColor,
+    ThemeData? themeData,
+  })  :
         // if the user chooses to supply custom drawing colors,
         // make sure there is at least on color to draw with
         assert(
@@ -55,7 +57,14 @@ class FeedbackThemeData {
         brightness = ThemeData.estimateBrightnessForColor(feedbackSheetColor) {
     final bool isDark = brightness == Brightness.dark;
     this.dragHandleColor = dragHandleColor ?? (isDark ? Colors.black26 : Colors.white38);
-    this.colorScheme = colorScheme ?? (isDark ? ColorScheme.dark(background: background) : ColorScheme.light(background: background));
+    this.themeData = themeData ??
+        (isDark
+            ? ThemeData.dark().copyWith(
+                colorScheme: ColorScheme.dark(background: background),
+              )
+            : ThemeData.light().copyWith(
+                colorScheme: ColorScheme.light(background: background),
+              ));
   }
 
   /// Create a dark version of the [FeedbackThemeData]
@@ -115,10 +124,17 @@ class FeedbackThemeData {
   /// Color of the drag handle on the feedback sheet
   late final Color dragHandleColor;
 
-  /// [ColorScheme] on the feedback UI
-  late final ColorScheme colorScheme;
+  /// [ThemeData] on the feedback UI
+  late final ThemeData themeData;
 
+  /// The color of the card in the feedback view.
   final Color cardColor;
+
+  /// The color of the text in the feedback view.
+  final Color textColor;
+
+  /// The color of the inactive elements in the feedback view.
+  final Color inactiveColor;
 }
 
 /// Provides an instance of [FeedbackThemeData] for all descendants.

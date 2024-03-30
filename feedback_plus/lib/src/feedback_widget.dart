@@ -129,8 +129,8 @@ class FeedbackWidgetState extends State<FeedbackWidget> with SingleTickerProvide
     final animation = Tween<double>(begin: 0, end: 1).chain(CurveTween(curve: Curves.easeInSine)).animate(_controller);
 
     final FeedbackThemeData feedbackThemeData = FeedbackTheme.of(context);
-    final ThemeData theme = ThemeData(
-        brightness: feedbackThemeData.brightness, cardColor: feedbackThemeData.feedbackSheetColor, colorScheme: feedbackThemeData.colorScheme);
+
+    final theme = feedbackThemeData.themeData;
 
     // We need to supply a navigator because `TextField` and other widgets that
     // could be used in the bottom feedback sheet require a navigator.

@@ -16,6 +16,13 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'custom_feedback.dart';
 
+final appTheme = ThemeData(
+  useMaterial3: true,
+  colorScheme: ColorScheme.fromSeed(
+    seedColor: _useCustomFeedback ? Colors.green : Colors.blue,
+  ),
+);
+
 void main() {
   runApp(const MyApp());
 }
@@ -32,42 +39,40 @@ bool _useCustomFeedback = false;
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return BetterFeedback(
-      // If custom feedback is not enabled, supply null and the default text
-      // feedback form will be used.
-      feedbackBuilder: _useCustomFeedback
-          ? (context, onSubmit, scrollController) => CustomFeedbackForm(
-                onSubmit: onSubmit,
-                scrollController: scrollController,
-              )
-          : null,
-      theme: FeedbackThemeData(
-        background: Colors.grey,
-        feedbackSheetColor: Colors.grey[50]!,
-        drawColors: [
-          Colors.red,
-          Colors.green,
-          Colors.blue,
-          Colors.yellow,
-        ],
-      ),
-      darkTheme: FeedbackThemeData.dark(),
-      localizationsDelegates: [
-        GlobalFeedbackLocalizationsDelegate(),
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ],
-      localeOverride: const Locale('en'),
-      mode: FeedbackMode.draw,
-      pixelRatio: 1,
-      child: MaterialApp(
-        title: 'Feedback Demo',
-        theme: ThemeData(
-          primarySwatch: _useCustomFeedback ? Colors.green : Colors.blue,
-        ),
-        home: MyHomePage(_toggleCustomizedFeedback),
-      ),
+    return MaterialApp(
+      title: 'Feedback Demo',
+      theme: appTheme,
+      home: BetterFeedback(
+          // If custom feedback is not enabled, supply null and the default text
+          // feedback form will be used.
+          feedbackBuilder: _useCustomFeedback
+              ? (context, onSubmit, scrollController) => CustomFeedbackForm(
+                    onSubmit: onSubmit,
+                    scrollController: scrollController,
+                  )
+              : null,
+          theme: FeedbackThemeData(
+            background: Colors.grey,
+            feedbackSheetColor: Colors.grey[50]!,
+            drawColors: [
+              Colors.red,
+              Colors.green,
+              Colors.blue,
+              Colors.yellow,
+            ],
+            themeData: appTheme,
+          ),
+          darkTheme: FeedbackThemeData.dark(),
+          localizationsDelegates: [
+            GlobalFeedbackLocalizationsDelegate(),
+            GlobalMaterialLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+          ],
+          localeOverride: const Locale('en'),
+          mode: FeedbackMode.draw,
+          pixelRatio: 1,
+          child: MyHomePage(_toggleCustomizedFeedback)),
     );
   }
 
@@ -184,6 +189,7 @@ class MyHomePage extends StatelessWidget {
                   launchUrl(Uri.parse('https://pub.dev/packages/feedback'));
                 },
               ),
+              const TextField(),
             ],
           ),
         ),

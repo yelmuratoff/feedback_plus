@@ -37,6 +37,7 @@ class ControlsColumn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isNavigatingActive = FeedbackMode.navigate == mode;
+    final isDrawingActive = FeedbackMode.draw == mode;
     return Card(
       elevation: 0,
       color: FeedbackTheme.of(context).cardColor,
@@ -53,7 +54,10 @@ class ControlsColumn extends StatelessWidget {
         children: <Widget>[
           IconButton(
             key: const ValueKey<String>('close_controls_column'),
-            icon: const Icon(Icons.close),
+            icon: Icon(
+              Icons.close,
+              color: FeedbackTheme.of(context).textColor,
+            ),
             onPressed: onCloseFeedback,
           ),
           _ColumnDivider(),
@@ -63,7 +67,16 @@ class ControlsColumn extends StatelessWidget {
               key: const ValueKey<String>('navigate_button'),
               onPressed: isNavigatingActive ? null : () => onControlModeChanged(FeedbackMode.navigate),
               disabledTextColor: FeedbackTheme.of(context).activeFeedbackModeColor,
-              child: Text(FeedbackLocalizations.of(context).navigate),
+              child: Text(
+                FeedbackLocalizations.of(context).navigate,
+                style: TextStyle(
+                  color: isNavigatingActive
+                      ? FeedbackTheme.of(context).activeFeedbackModeColor
+                      : isDrawingActive
+                          ? Colors.grey
+                          : FeedbackTheme.of(context).textColor,
+                ),
+              ),
             ),
           ),
           _ColumnDivider(),
@@ -74,23 +87,36 @@ class ControlsColumn extends StatelessWidget {
               minWidth: 20,
               onPressed: isNavigatingActive ? () => onControlModeChanged(FeedbackMode.draw) : null,
               disabledTextColor: FeedbackTheme.of(context).activeFeedbackModeColor,
-              child: Text(FeedbackLocalizations.of(context).draw),
+              child: Text(
+                FeedbackLocalizations.of(context).draw,
+                style: TextStyle(
+                  color: isNavigatingActive
+                      ? Colors.grey
+                      : (isDrawingActive ? FeedbackTheme.of(context).activeFeedbackModeColor : FeedbackTheme.of(context).textColor),
+                ),
+              ),
             ),
           ),
           IconButton(
             key: const ValueKey<String>('undo_button'),
-            icon: const Icon(Icons.undo),
+            icon: Icon(
+              Icons.undo,
+              color: isNavigatingActive ? Colors.grey : FeedbackTheme.of(context).textColor,
+            ),
             onPressed: isNavigatingActive ? null : onUndo,
           ),
           IconButton(
             key: const ValueKey<String>('clear_button'),
-            icon: const Icon(Icons.delete),
+            icon: Icon(
+              Icons.delete,
+              color: isNavigatingActive ? Colors.grey : FeedbackTheme.of(context).textColor,
+            ),
             onPressed: isNavigatingActive ? null : onClearDrawing,
           ),
           for (final color in colors)
             _ColorSelectionIconButton(
               key: ValueKey<Color>(color),
-              color: color,
+              color: isNavigatingActive ? Colors.grey : color,
               onPressed: isNavigatingActive ? null : onColorChanged,
               isActive: activeColor == color,
             ),
@@ -117,6 +143,7 @@ class _ColorSelectionIconButton extends StatelessWidget {
     return IconButton(
       icon: Icon(isActive ? Icons.lens : Icons.panorama_fish_eye),
       color: color,
+      disabledColor: color.withOpacity(0.5),
       onPressed: onPressed == null ? null : () => onPressed!(color),
     );
   }
