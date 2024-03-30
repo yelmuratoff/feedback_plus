@@ -45,7 +45,6 @@ class FeedbackThemeData {
     this.bottomSheetTextInputStyle = _defaultBottomSheetTextInputStyle,
     this.sheetIsDraggable = true,
     Color? dragHandleColor,
-    ThemeData? themeData,
   })  :
         // if the user chooses to supply custom drawing colors,
         // make sure there is at least on color to draw with
@@ -57,14 +56,6 @@ class FeedbackThemeData {
         brightness = ThemeData.estimateBrightnessForColor(feedbackSheetColor) {
     final bool isDark = brightness == Brightness.dark;
     this.dragHandleColor = dragHandleColor ?? (isDark ? Colors.black26 : Colors.white38);
-    this.themeData = themeData ??
-        (isDark
-            ? ThemeData.dark().copyWith(
-                colorScheme: ColorScheme.dark(background: background),
-              )
-            : ThemeData.light().copyWith(
-                colorScheme: ColorScheme.light(background: background),
-              ));
   }
 
   /// Create a dark version of the [FeedbackThemeData]

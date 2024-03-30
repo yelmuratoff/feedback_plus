@@ -42,9 +42,9 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'Feedback Demo',
       theme: appTheme,
-      home: BetterFeedback(
-          // If custom feedback is not enabled, supply null and the default text
-          // feedback form will be used.
+      home: MyHomePage(_toggleCustomizedFeedback),
+      builder: (context, child) {
+        return BetterFeedback(
           feedbackBuilder: _useCustomFeedback
               ? (context, onSubmit, scrollController) => CustomFeedbackForm(
                     onSubmit: onSubmit,
@@ -60,7 +60,6 @@ class _MyAppState extends State<MyApp> {
               Colors.blue,
               Colors.yellow,
             ],
-            themeData: appTheme,
           ),
           darkTheme: FeedbackThemeData.dark(),
           localizationsDelegates: [
@@ -72,7 +71,9 @@ class _MyAppState extends State<MyApp> {
           localeOverride: const Locale('en'),
           mode: FeedbackMode.draw,
           pixelRatio: 1,
-          child: MyHomePage(_toggleCustomizedFeedback)),
+          child: child!,
+        );
+      },
     );
   }
 
