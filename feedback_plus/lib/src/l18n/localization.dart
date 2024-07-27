@@ -33,7 +33,9 @@ class FeedbackLocalization extends StatelessWidget {
 
     return Localizations(
       delegates: mergedDelegates,
-      locale: localeOverride ?? View.maybeOf(context)?.platformDispatcher.locale ?? const Locale('en'),
+      locale: localeOverride ??
+          View.maybeOf(context)?.platformDispatcher.locale ??
+          const Locale('en'),
       child: child,
     );
   }

@@ -186,7 +186,8 @@ class BetterFeedback extends StatefulWidget {
   /// BetterFeedback.of(context).hide(...);
   /// ```
   static FeedbackController of(BuildContext context) {
-    final feedbackData = context.dependOnInheritedWidgetOfExactType<FeedbackData>();
+    final feedbackData =
+        context.dependOnInheritedWidgetOfExactType<FeedbackData>();
     assert(
       feedbackData != null,
       'You need to add a $BetterFeedback widget above this context!',
@@ -233,7 +234,8 @@ class _BetterFeedbackState extends State<BetterFeedback> {
                 drawColors: FeedbackTheme.of(context).drawColors,
                 mode: widget.mode,
                 pixelRatio: widget.pixelRatio,
-                feedbackBuilder: widget.feedbackBuilder ?? simpleFeedbackBuilder,
+                feedbackBuilder:
+                    widget.feedbackBuilder ?? simpleFeedbackBuilder,
                 child: widget.child,
               );
             },

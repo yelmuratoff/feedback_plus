@@ -19,7 +19,8 @@ void main() {
       child: ControlsColumn(
         activeColor: activeColor ?? Colors.red,
         mode: mode ?? FeedbackMode.draw,
-        colors: colors ?? [Colors.red, Colors.green, Colors.blue, Colors.yellow],
+        colors:
+            colors ?? [Colors.red, Colors.green, Colors.blue, Colors.yellow],
         onClearDrawing: onClearDrawing ?? () {},
         onCloseFeedback: onCloseFeedback ?? () {},
         onColorChanged: onColorChanged ?? (newColor) {},
@@ -43,7 +44,8 @@ void main() {
 
       await tester.pumpAndSettle();
 
-      final closeButton = find.byKey(const ValueKey<String>('close_controls_column'));
+      final closeButton =
+          find.byKey(const ValueKey<String>('close_controls_column'));
       await tester.tap(closeButton);
 
       expect(closeButtonCallbackExecuted, true);
@@ -82,7 +84,8 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      final navigateButton = find.byKey(const ValueKey<String>('navigate_button'));
+      final navigateButton =
+          find.byKey(const ValueKey<String>('navigate_button'));
       await tester.tap(navigateButton);
 
       expect(mode, FeedbackMode.navigate);

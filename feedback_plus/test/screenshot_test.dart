@@ -17,7 +17,8 @@ void main() {
       await tester.runAsync(() async {
         await tester.pumpWidget(widget);
 
-        screenshot = await controller.capture(pixelRatio: 1, delay: Duration.zero);
+        screenshot =
+            await controller.capture(pixelRatio: 1, delay: Duration.zero);
       });
 
       expect(screenshot, isNotNull);

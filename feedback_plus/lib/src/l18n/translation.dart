@@ -268,12 +268,14 @@ class JaFeedbackLocalizations extends FeedbackLocalizations {
 
 /// This is a localization delegate, which includes all of the localizations
 /// already present in this library.
-class GlobalFeedbackLocalizationsDelegate extends LocalizationsDelegate<FeedbackLocalizations> {
+class GlobalFeedbackLocalizationsDelegate
+    extends LocalizationsDelegate<FeedbackLocalizations> {
   /// Creates a [GlobalFeedbackLocalizationsDelegate].
   GlobalFeedbackLocalizationsDelegate();
 
   /// Returns the default instance of a [GlobalFeedbackLocalizationsDelegate].
-  static LocalizationsDelegate<FeedbackLocalizations> delegate = GlobalFeedbackLocalizationsDelegate();
+  static LocalizationsDelegate<FeedbackLocalizations> delegate =
+      GlobalFeedbackLocalizationsDelegate();
 
   /// Returns a dict of all supported locales.
   /// Override this member to provide your own localized strings.

@@ -26,7 +26,8 @@ class FeedbackApp extends StatelessWidget {
   FeedbackThemeData _buildThemeData(BuildContext context) {
     final ThemeMode mode = themeMode ?? ThemeMode.system;
     final Brightness brightness = MediaQuery.platformBrightnessOf(context);
-    final bool useDarkMode = mode == ThemeMode.dark || (mode == ThemeMode.system && brightness == Brightness.dark);
+    final bool useDarkMode = mode == ThemeMode.dark ||
+        (mode == ThemeMode.system && brightness == Brightness.dark);
     FeedbackThemeData? themeData;
 
     if (useDarkMode && darkTheme != null) {

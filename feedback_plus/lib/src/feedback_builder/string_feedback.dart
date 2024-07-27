@@ -61,12 +61,14 @@ class _StringFeedbackState extends State<StringFeedback> {
               ListView(
                 controller: widget.scrollController,
                 // Pad the top by 20 to match the corner radius if drag enabled.
-                padding: EdgeInsets.fromLTRB(16, widget.scrollController != null ? 20 : 16, 16, 0),
+                padding: EdgeInsets.fromLTRB(
+                    16, widget.scrollController != null ? 20 : 16, 16, 0),
                 children: <Widget>[
                   Text(
                     FeedbackLocalizations.of(context).feedbackDescriptionText,
                     maxLines: 2,
-                    style: FeedbackTheme.of(context).bottomSheetDescriptionStyle,
+                    style:
+                        FeedbackTheme.of(context).bottomSheetDescriptionStyle,
                   ),
                   TextField(
                     style: FeedbackTheme.of(context).bottomSheetTextInputStyle,
@@ -81,7 +83,8 @@ class _StringFeedbackState extends State<StringFeedback> {
                   ),
                 ],
               ),
-              if (widget.scrollController != null) const FeedbackSheetDragHandle(),
+              if (widget.scrollController != null)
+                const FeedbackSheetDragHandle(),
             ],
           ),
         ),

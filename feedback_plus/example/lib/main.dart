@@ -77,7 +77,8 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-  void _toggleCustomizedFeedback() => setState(() => _useCustomFeedback = !_useCustomFeedback);
+  void _toggleCustomizedFeedback() =>
+      setState(() => _useCustomFeedback = !_useCustomFeedback);
 }
 
 class MyHomePage extends StatelessWidget {
@@ -89,7 +90,9 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_useCustomFeedback ? '(Custom) Feedback Example' : 'Feedback Example'),
+        title: Text(_useCustomFeedback
+            ? '(Custom) Feedback Example'
+            : 'Feedback Example'),
       ),
       drawer: Drawer(
         child: Container(color: Colors.blue),
@@ -150,7 +153,8 @@ class MyHomePage extends StatelessWidget {
                   onPressed: () {
                     BetterFeedback.of(context).show((feedback) async {
                       // draft an email and send to developer
-                      final screenshotFilePath = await writeImageToStorage(feedback.screenshot);
+                      final screenshotFilePath =
+                          await writeImageToStorage(feedback.screenshot);
 
                       final Email email = Email(
                         body: feedback.text,
@@ -170,7 +174,8 @@ class MyHomePage extends StatelessWidget {
                 onPressed: () {
                   BetterFeedback.of(context).show(
                     (feedback) async {
-                      final screenshotFilePath = await writeImageToStorage(feedback.screenshot);
+                      final screenshotFilePath =
+                          await writeImageToStorage(feedback.screenshot);
 
                       // ignore: deprecated_member_use
                       await Share.shareFiles(
@@ -197,8 +202,10 @@ class MyHomePage extends StatelessWidget {
       ),
       floatingActionButton: MaterialButton(
         color: Theme.of(context).primaryColor,
-        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
-        child: const Text('toggle feedback mode', style: TextStyle(color: Colors.white)),
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(20))),
+        child: const Text('toggle feedback mode',
+            style: TextStyle(color: Colors.white)),
         onPressed: () {
           // don't toggle the feedback mode if it's currently visible
           if (!BetterFeedback.of(context).isVisible) {
@@ -226,7 +233,8 @@ class _SecondaryScaffold extends StatelessWidget {
 
 Future<String> writeImageToStorage(Uint8List feedbackScreenshot) async {
   final Directory output = await getTemporaryDirectory();
-  final String screenshotFilePath = '${output.path}/feedback${feedbackScreenshot.hashCode}.png';
+  final String screenshotFilePath =
+      '${output.path}/feedback${feedbackScreenshot.hashCode}.png';
   final File screenshotFile = File(screenshotFilePath);
   await screenshotFile.writeAsBytes(feedbackScreenshot);
   return screenshotFilePath;

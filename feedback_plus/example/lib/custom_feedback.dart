@@ -73,11 +73,13 @@ class _CustomFeedbackFormState extends State<CustomFeedbackForm> {
         Expanded(
           child: Stack(
             children: [
-              if (widget.scrollController != null) const FeedbackSheetDragHandle(),
+              if (widget.scrollController != null)
+                const FeedbackSheetDragHandle(),
               ListView(
                 controller: widget.scrollController,
                 // Pad the top by 20 to match the corner radius if drag enabled.
-                padding: EdgeInsets.fromLTRB(16, widget.scrollController != null ? 20 : 16, 16, 0),
+                padding: EdgeInsets.fromLTRB(
+                    16, widget.scrollController != null ? 20 : 16, 16, 0),
                 children: [
                   const Text('What kind of feedback do you want to give?'),
                   Row(
@@ -94,11 +96,16 @@ class _CustomFeedbackFormState extends State<CustomFeedbackForm> {
                               .map(
                                 (type) => DropdownMenuItem<FeedbackType>(
                                   value: type,
-                                  child: Text(type.toString().split('.').last.replaceAll('_', ' ')),
+                                  child: Text(type
+                                      .toString()
+                                      .split('.')
+                                      .last
+                                      .replaceAll('_', ' ')),
                                 ),
                               )
                               .toList(),
-                          onChanged: (feedbackType) => setState(() => _customFeedback.feedbackType = feedbackType),
+                          onChanged: (feedbackType) => setState(() =>
+                              _customFeedback.feedbackType = feedbackType),
                         ),
                       ),
                     ],
@@ -106,7 +113,8 @@ class _CustomFeedbackFormState extends State<CustomFeedbackForm> {
                   const SizedBox(height: 16),
                   const Text('What is your feedback?'),
                   TextField(
-                    onChanged: (newFeedback) => _customFeedback.feedbackText = newFeedback,
+                    onChanged: (newFeedback) =>
+                        _customFeedback.feedbackText = newFeedback,
                   ),
                   const SizedBox(height: 16),
                   const Text('How does this make you feel?'),

@@ -47,7 +47,8 @@ class FeedbackWidget extends StatefulWidget {
 }
 
 @visibleForTesting
-class FeedbackWidgetState extends State<FeedbackWidget> with SingleTickerProviderStateMixin {
+class FeedbackWidgetState extends State<FeedbackWidget>
+    with SingleTickerProviderStateMixin {
   // Padding to put around the interactive screenshot preview.
   final double padding = 8;
 
@@ -109,13 +110,15 @@ class FeedbackWidgetState extends State<FeedbackWidget> with SingleTickerProvide
     super.didUpdateWidget(oldWidget);
     // update feedback mode with the initial value
     mode = widget.mode;
-    if (oldWidget.isFeedbackVisible != widget.isFeedbackVisible && oldWidget.isFeedbackVisible == false) {
+    if (oldWidget.isFeedbackVisible != widget.isFeedbackVisible &&
+        oldWidget.isFeedbackVisible == false) {
       // Feedback is now visible,
       // start animation to show it.
       _controller.forward();
     }
 
-    if (oldWidget.isFeedbackVisible != widget.isFeedbackVisible && oldWidget.isFeedbackVisible == true) {
+    if (oldWidget.isFeedbackVisible != widget.isFeedbackVisible &&
+        oldWidget.isFeedbackVisible == true) {
       // Feedback is no longer visible,
       // reverse animation to hide it.
       _controller.reverse();
@@ -126,7 +129,9 @@ class FeedbackWidgetState extends State<FeedbackWidget> with SingleTickerProvide
 
   @override
   Widget build(BuildContext context) {
-    final animation = Tween<double>(begin: 0, end: 1).chain(CurveTween(curve: Curves.easeInSine)).animate(_controller);
+    final animation = Tween<double>(begin: 0, end: 1)
+        .chain(CurveTween(curve: Curves.easeInSine))
+        .animate(_controller);
 
     final FeedbackThemeData feedbackThemeData = FeedbackTheme.of(context);
 
@@ -150,7 +155,8 @@ class FeedbackWidgetState extends State<FeedbackWidget> with SingleTickerProvide
                   controller: screenshotController,
                   child: PaintOnChild(
                     controller: painterController,
-                    isPaintingActive: mode == FeedbackMode.draw && widget.isFeedbackVisible,
+                    isPaintingActive:
+                        mode == FeedbackMode.draw && widget.isFeedbackVisible,
                     child: widget.child,
                   ),
                 ),
@@ -174,7 +180,8 @@ class FeedbackWidgetState extends State<FeedbackWidget> with SingleTickerProvide
                             // drawing the child widget which breaks the
                             // screenshot.
                             minOpacity: .01,
-                            child: LayoutBuilder(builder: (context, constraints) {
+                            child:
+                                LayoutBuilder(builder: (context, constraints) {
                               final size = MediaQuery.of(context).size;
                               return OverflowBox(
                                 // Allow the screenshot to overflow to the full
@@ -188,8 +195,10 @@ class FeedbackWidgetState extends State<FeedbackWidget> with SingleTickerProvide
                                   // `_FeedbackLayoutDelegate` ensures that the
                                   // constraints are the same aspect ratio as
                                   // the query size.
-                                  scaleFactor: constraints.maxWidth / size.width,
-                                  child: LayoutBuilder(builder: (context, constraints) {
+                                  scaleFactor:
+                                      constraints.maxWidth / size.width,
+                                  child: LayoutBuilder(
+                                      builder: (context, constraints) {
                                     return screenshotChild!;
                                   }),
                                 ),
@@ -241,10 +250,13 @@ class FeedbackWidgetState extends State<FeedbackWidget> with SingleTickerProvide
                       if (!animation.isDismissed)
                         LayoutId(
                           id: _sheetId,
-                          child: NotificationListener<DraggableScrollableNotification>(
+                          child: NotificationListener<
+                              DraggableScrollableNotification>(
                             onNotification: (notification) {
-                              sheetProgress.value = (notification.extent - notification.minExtent) /
-                                  (notification.maxExtent - notification.minExtent);
+                              sheetProgress.value = (notification.extent -
+                                      notification.minExtent) /
+                                  (notification.maxExtent -
+                                      notification.minExtent);
                               return false;
                             },
                             child: FeedbackBottomSheet(
@@ -368,7 +380,8 @@ class _FeedbackLayoutDelegate extends MultiChildLayoutDelegate {
   double get screenHeight => query.size.height;
 
   // Fraction of screen height taken up by the screenshot preview.
-  double get screenshotFraction => 1 - sheetFraction - (safeAreaHeight / screenHeight);
+  double get screenshotFraction =>
+      1 - sheetFraction - (safeAreaHeight / screenHeight);
 
   double get screenshotHeight => screenshotFraction * screenHeight;
 
@@ -405,7 +418,8 @@ class _FeedbackLayoutDelegate extends MultiChildLayoutDelegate {
     );
 
     // Position the screenshot and controls centered together.
-    final double remainingWidth = query.size.width - screenShotSize.width - controlsSize.width;
+    final double remainingWidth =
+        query.size.width - screenShotSize.width - controlsSize.width;
     positionChild(
       _screenshotId,
       Offset(
@@ -416,7 +430,8 @@ class _FeedbackLayoutDelegate extends MultiChildLayoutDelegate {
     positionChild(
       _controlsColumnId,
       Offset(
-        size.width - animationProgress * (controlsSize.width + remainingWidth / 2),
+        size.width -
+            animationProgress * (controlsSize.width + remainingWidth / 2),
         safeAreaHeight + (screenshotHeight - controlsSize.height) / 2,
       ),
     );
@@ -435,7 +450,8 @@ class _FeedbackLayoutDelegate extends MultiChildLayoutDelegate {
       _sheetId,
       Offset(
         0,
-        size.height - animationProgress * (sheetHeight + query.viewInsets.bottom),
+        size.height -
+            animationProgress * (sheetHeight + query.viewInsets.bottom),
       ),
     );
   }

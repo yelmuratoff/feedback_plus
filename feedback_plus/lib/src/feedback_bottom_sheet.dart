@@ -33,7 +33,8 @@ class FeedbackBottomSheet extends StatelessWidget {
     return Align(
       alignment: Alignment.bottomCenter,
       child: SizedBox(
-        height: MediaQuery.of(context).size.height * FeedbackTheme.of(context).feedbackSheetHeight,
+        height: MediaQuery.of(context).size.height *
+            FeedbackTheme.of(context).feedbackSheetHeight,
         child: Material(
           color: FeedbackTheme.of(context).feedbackSheetColor,
           // Pass a null scroll controller because the sheet is not drag
@@ -57,7 +58,8 @@ class _DraggableFeedbackSheet extends StatefulWidget {
   final ValueNotifier<double> sheetProgress;
 
   @override
-  State<_DraggableFeedbackSheet> createState() => _DraggableFeedbackSheetState();
+  State<_DraggableFeedbackSheet> createState() =>
+      _DraggableFeedbackSheetState();
 }
 
 class _DraggableFeedbackSheetState extends State<_DraggableFeedbackSheet> {
@@ -79,8 +81,9 @@ class _DraggableFeedbackSheetState extends State<_DraggableFeedbackSheet> {
     final MediaQueryData query = MediaQuery.of(context);
     // We need to recalculate the collapsed height to account for the safe area
     // at the top and the keyboard (if present).
-    final double collapsedHeight =
-        feedbackTheme.feedbackSheetHeight * query.size.height / (query.size.height - query.padding.top - query.viewInsets.bottom);
+    final double collapsedHeight = feedbackTheme.feedbackSheetHeight *
+        query.size.height /
+        (query.size.height - query.padding.top - query.viewInsets.bottom);
     return Column(
       children: [
         ValueListenableBuilder<void>(
@@ -109,7 +112,8 @@ class _DraggableFeedbackSheetState extends State<_DraggableFeedbackSheet> {
                 builder: (context, _, child) {
                   return ClipRRect(
                     borderRadius: BorderRadius.vertical(
-                      top: Radius.circular(20 * (1 - widget.sheetProgress.value)),
+                      top: Radius.circular(
+                          20 * (1 - widget.sheetProgress.value)),
                     ),
                     child: child,
                   );

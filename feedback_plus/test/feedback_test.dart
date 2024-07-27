@@ -121,7 +121,8 @@ void main() {
       expect(userInputFields, findsOneWidget);
 
       // close feedback again
-      final closeFeedbackButton = find.byKey(const Key('close_controls_column'));
+      final closeFeedbackButton =
+          find.byKey(const Key('close_controls_column'));
       await tester.tap(closeFeedbackButton);
       await tester.pumpAndSettle();
 
@@ -150,7 +151,8 @@ void main() {
       expect(userInputFields, findsOneWidget);
 
       // add fake step to test reversing
-      final feedbackWidgetState = tester.state<FeedbackWidgetState>(find.byType(FeedbackWidget));
+      final feedbackWidgetState =
+          tester.state<FeedbackWidgetState>(find.byType(FeedbackWidget));
 
       expect(feedbackWidgetState.painterController.getStepCount(), 0);
       feedbackWidgetState.painterController.addMockStep();
@@ -181,7 +183,8 @@ void main() {
       );
       await tester.pumpWidget(widget);
       await tester.pumpAndSettle();
-      final feedbackWidgetState = tester.state<FeedbackWidgetState>(find.byType(FeedbackWidget));
+      final feedbackWidgetState =
+          tester.state<FeedbackWidgetState>(find.byType(FeedbackWidget));
       feedbackWidgetState.screenshotController = MockScreenshotController();
 
       // feedback is closed
@@ -201,7 +204,8 @@ void main() {
       await tester.pumpAndSettle();
 
       // submit feedback
-      final submitFeedbackButton = find.byKey(const Key('submit_feedback_button'));
+      final submitFeedbackButton =
+          find.byKey(const Key('submit_feedback_button'));
 
       await tester.tap(submitFeedbackButton);
       await tester.pumpAndSettle();
@@ -210,7 +214,8 @@ void main() {
       expect(submittedScreenshot, isNotNull);
     });
 
-    testWidgets('feedback callback gets called with custom feedback content', (tester) async {
+    testWidgets('feedback callback gets called with custom feedback content',
+        (tester) async {
       UserFeedback? submittedFeedback;
 
       final widget = BetterFeedback(
@@ -234,7 +239,8 @@ void main() {
       );
       await tester.pumpWidget(widget);
       await tester.pumpAndSettle();
-      final feedbackWidgetState = tester.state<FeedbackWidgetState>(find.byType(FeedbackWidget));
+      final feedbackWidgetState =
+          tester.state<FeedbackWidgetState>(find.byType(FeedbackWidget));
       feedbackWidgetState.screenshotController = MockScreenshotController();
 
       // feedback is closed
@@ -248,7 +254,8 @@ void main() {
       await tester.pumpAndSettle();
 
       // submit feedback
-      final submitFeedbackButton = find.byKey(const Key('custom_submit_feedback_button'));
+      final submitFeedbackButton =
+          find.byKey(const Key('custom_submit_feedback_button'));
 
       await tester.tap(submitFeedbackButton);
       await tester.pumpAndSettle();
@@ -277,7 +284,8 @@ void main() {
       final activeDrawingColor = getActiveColorButton();
       expect(activeDrawingColor.evaluate().length, 0);
 
-      final testAppState = tester.state<MyTestPageState>(find.byType(MyTestPage));
+      final testAppState =
+          tester.state<MyTestPageState>(find.byType(MyTestPage));
       expect(testAppState.counter, 0);
 
       final incrementButton = find.byKey(const Key('increment_button'));
@@ -298,7 +306,8 @@ void main() {
       expect(newPage, findsOneWidget);
 
       // Make sure that the interceptor doesn't leave in navigation mode
-      final feedbackWidgetState = tester.state<FeedbackWidgetState>(find.byType(FeedbackWidget));
+      final feedbackWidgetState =
+          tester.state<FeedbackWidgetState>(find.byType(FeedbackWidget));
       expect(feedbackWidgetState.backButtonIntercept(), false);
 
       // ideally we should test pop behavior using the system back button but
@@ -310,7 +319,9 @@ void main() {
     });
   });
 
-  testWidgets('check if the initial mode persists after re-open the feedback widget', (tester) async {
+  testWidgets(
+      'check if the initial mode persists after re-open the feedback widget',
+      (tester) async {
     const widget = BetterFeedback(
       mode: FeedbackMode.navigate,
       child: MyTestApp(),
@@ -319,7 +330,8 @@ void main() {
     await tester.pumpWidget(widget);
     await tester.pumpAndSettle();
 
-    final feedbackWidgetState = tester.state<FeedbackWidgetState>(find.byType(FeedbackWidget));
+    final feedbackWidgetState =
+        tester.state<FeedbackWidgetState>(find.byType(FeedbackWidget));
 
     expect(feedbackWidgetState.mode, FeedbackMode.navigate);
 
@@ -388,7 +400,9 @@ void main() {
 
 class MockScreenshotController extends ScreenshotController {
   @override
-  Future<Uint8List> capture({double pixelRatio = 1, Duration delay = const Duration(milliseconds: 20)}) {
+  Future<Uint8List> capture(
+      {double pixelRatio = 1,
+      Duration delay = const Duration(milliseconds: 20)}) {
     return Future.value(Uint8List.fromList(
       List.generate(pow(4, pixelRatio).ceil(), (number) => 1),
     ));

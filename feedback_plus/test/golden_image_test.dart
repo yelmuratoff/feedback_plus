@@ -13,7 +13,8 @@ void main() {
 
       await tester.pumpWidget(widget);
       await tester.pumpAndSettle();
-      await expectLater(find.byType(BetterFeedback), matchesGoldenFile('golden_images/closed_feedback.png'));
+      await expectLater(find.byType(BetterFeedback),
+          matchesGoldenFile('golden_images/closed_feedback.png'));
     });
 
     group(' open feedback', () {
@@ -30,7 +31,8 @@ void main() {
         await tester.tap(openFeedbackButton);
         await tester.pumpAndSettle();
 
-        await expectLater(find.byType(BetterFeedback), matchesGoldenFile('golden_images/open_feedback_light_mode.png'));
+        await expectLater(find.byType(BetterFeedback),
+            matchesGoldenFile('golden_images/open_feedback_light_mode.png'));
       });
 
       testWidgets(' dark mode', (tester) async {
@@ -46,7 +48,8 @@ void main() {
         await tester.tap(openFeedbackButton);
         await tester.pumpAndSettle();
 
-        await expectLater(find.byType(BetterFeedback), matchesGoldenFile('golden_images/open_feedback_dark_mode.png'));
+        await expectLater(find.byType(BetterFeedback),
+            matchesGoldenFile('golden_images/open_feedback_dark_mode.png'));
       });
     });
   });
