@@ -136,9 +136,9 @@ class FeedbackWidgetState extends State<FeedbackWidget> with SingleTickerProvide
     // the bottom sheet because navigators block interaction on widgets behind
     // them but the background widgets need to be tap-able behind the bottom
     // sheet.
-    return Navigator(
-      onGenerateRoute: (_) {
-        return MaterialPageRoute<void>(
+    return Overlay(
+      initialEntries: [
+        OverlayEntry(
           builder: (context) {
             return Material(
               color: FeedbackTheme.of(context).background,
@@ -243,8 +243,8 @@ class FeedbackWidgetState extends State<FeedbackWidget> with SingleTickerProvide
                           id: _sheetId,
                           child: NotificationListener<DraggableScrollableNotification>(
                             onNotification: (notification) {
-                              sheetProgress.value =
-                                  (notification.extent - notification.minExtent) / (notification.maxExtent - notification.minExtent);
+                              sheetProgress.value = (notification.extent - notification.minExtent) /
+                                  (notification.maxExtent - notification.minExtent);
                               return false;
                             },
                             child: FeedbackBottomSheet(
@@ -274,8 +274,8 @@ class FeedbackWidgetState extends State<FeedbackWidget> with SingleTickerProvide
               ),
             );
           },
-        );
-      },
+        ),
+      ],
     );
   }
 
@@ -442,6 +442,8 @@ class _FeedbackLayoutDelegate extends MultiChildLayoutDelegate {
 
   @override
   bool shouldRelayout(covariant _FeedbackLayoutDelegate oldDelegate) {
-    return query != oldDelegate.query || sheetFraction != oldDelegate.sheetFraction || animationProgress != oldDelegate.animationProgress;
+    return query != oldDelegate.query ||
+        sheetFraction != oldDelegate.sheetFraction ||
+        animationProgress != oldDelegate.animationProgress;
   }
 }
